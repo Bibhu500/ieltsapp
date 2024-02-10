@@ -9,8 +9,9 @@ import Listening from './components/Listening';
 import Reading from './components/Reading';
 import Pricing from './components/Pricing';
 
-import LoginSignupPage from './components/LoginSignupPage';
+import LoginPage from './components/LoginPage';
 import Landingpage from './components/Landingpage.';
+import SignupPage from './components/SignupPage';
 
 
 const App = () => {
@@ -26,7 +27,9 @@ const App = () => {
           <Route path="/listening" element={<Listening />} />
           <Route path="/reading" element={<Reading />} />
           <Route path="/pricing" element={<Pricing />} />
-          <Route path="/login" element={<LoginSignupPage/>} />
+          <Route path="/login" element={<LoginPage/>} />
+          <Route path="/signup" element={<SignupPage/>} />
+          
           
         </Routes>
       </div>
