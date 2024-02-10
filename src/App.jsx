@@ -1,7 +1,7 @@
 import './App.css';
 import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 
-import Home from './components/Home';
+
 import Learn from './components/Learn';
 import Speaking from './components/Speaking';
 import Writing from './components/Writing';
@@ -27,6 +27,7 @@ const App = () => {
           <Route path="/reading" element={<Reading />} />
           <Route path="/pricing" element={<Pricing />} />
           <Route path="/login" element={<LoginSignupPage/>} />
+          
         </Routes>
       </div>
     </Router>

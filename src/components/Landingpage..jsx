@@ -11,7 +11,8 @@ import FAQSection from './FAQSection';
 import FreeTrialSection from './FreeTrialSection';
 import HelpCenter from './HelpCenter';
 import PerformanceTrack from './PerformanceTrack';
-import SpeakingWritingSection from './SpeakingWritingSection';
+import WritingSection from './WritingSection';
+import SpeakingSection from './SpeakingSection';
 
 
 const Landingpage = () => {
@@ -23,7 +24,9 @@ const Landingpage = () => {
       <HowItWorksSection/>
       <PerformanceTrack/>
       <LearningPlanSection/>
-      <SpeakingWritingSection/>
+      <SpeakingSection/>
+      <WritingSection/>
+     
       <TrustSection/>
       <TestimonialsCarousel/>
       <FAQSection/>
