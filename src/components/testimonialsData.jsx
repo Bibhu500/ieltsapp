@@ -2,30 +2,31 @@ import { useState } from 'react';
 
 const testimonialsData = [
   {
-    quote: "Landwind is just awesome. It contains tons of predesigned components and pages starting from login screen to complex dashboard. Perfect choice for your next SaaS application.",
-    author: "Micheal Gough",
-    position: "CEO at Google",
-    avatar: "https://flowbite.s3.amazonaws.com/blocks/marketing-ui/avatars/michael-gouch.png"
+    quote: "IeltsAppeal is an incredible platform that has significantly boosted my IELTS preparation journey. The performance tracking feature helped me monitor my progress effectively, allowing me to focus on areas that needed improvement. The accuracy of the practice tests is commendable, providing an experience that closely simulates the actual exam.",
+    author: "Neha Patel",
+    position: "Student at NorthEastern",
+    avatar: "https://flowbite.s3.amazonaws.com/blocks/marketing-ui/avatars/neha-patel.png"
   },
   {
-    quote: "I've been using Landwind for my projects and it has greatly improved my productivity. The components are well-designed and easy to customize.",
-    author: "Jennifer Smith",
-    position: "Freelance Developer",
-    avatar: "https://flowbite.s3.amazonaws.com/blocks/marketing-ui/avatars/jennifer-smith.png"
+    quote: "I cannot recommend IeltsAppeal enough! As a working professional with limited time for preparation, I found the performance tracking feature immensely helpful in optimizing my study sessions. The accuracy of the practice tests is remarkable, providing an authentic exam-like experience. Thanks to IeltsAppeal, I was able to achieve my desired band score.",
+    author: "James Miller",
+    position: "Working Professional",
+    avatar: "https://flowbite.s3.amazonaws.com/blocks/marketing-ui/avatars/james-miller.png"
   },
   {
-    quote: "Landwind's documentation is top-notch and their support team is very responsive. I highly recommend it to anyone looking for a reliable UI kit.",
-    author: "John Doe",
-    position: "Product Manager",
-    avatar: "https://flowbite.s3.amazonaws.com/blocks/marketing-ui/avatars/john-doe.png"
+    quote: "Using IeltsAppeal has been a game-changer for me. As a self-employed individual, I needed a platform that offered accurate practice tests and performance tracking features to fit my busy schedule. IeltsAppeal exceeded my expectations with its comprehensive study resources and precise assessment tools. It's undoubtedly the best investment I made for my IELTS preparation.",
+    author: "Rajesh Singh",
+    position: "Self-Employed",
+    avatar: "https://flowbite.s3.amazonaws.com/blocks/marketing-ui/avatars/rajesh-singh.png"
   },
   {
-    quote: "I've tried several UI kits before, but Landwind stands out with its clean and modern design. It's a pleasure to work with.",
-    author: "Emily Johnson",
-    position: "Frontend Developer",
-    avatar: "https://flowbite.s3.amazonaws.com/blocks/marketing-ui/avatars/emily-johnson.png"
+    quote: "IeltsAppeal is simply phenomenal! The performance tracking feature helped me identify my strengths and weaknesses, enabling me to tailor my study plan accordingly. The accuracy of the practice tests is unmatched, providing a realistic exam environment. Thanks to IeltsAppeal, I was able to achieve a band score beyond my expectations.",
+    author: "Emma Thompson",
+    position: "Student",
+    avatar: "https://flowbite.s3.amazonaws.com/blocks/marketing-ui/avatars/emma-thompson.png"
   }
 ];
+
 
 
 function TestimonialsCarousel() {
@@ -52,7 +53,6 @@ function TestimonialsCarousel() {
             <p className="text-xl font-medium text-gray-900 md:text-2xl dark:text-white">"{testimonial.quote}"</p>
           </blockquote>
           <figcaption className="flex items-center justify-center mt-6 space-x-3">
-            <img className="w-6 h-6 rounded-full" src={testimonial.avatar} alt="profile picture" />
             <div className="flex items-center divide-x-2 divide-gray-500 dark:divide-gray-700">
               <div className="pr-3 font-medium text-gray-900 dark:text-white">{testimonial.author}</div>
               <div className="pl-3 text-sm font-light text-gray-500 dark:text-gray-400">{testimonial.position}</div>

@@ -2,8 +2,8 @@
 
 const LearningPlanSection = () => {
   return (
-    <section id="learn-plan" className="bg-gray-50 dark:bg-gray-900">
-      <div className="max-w-screen-xl px-4 py-8 mx-auto lg:py-24 lg:px-6">
+    <section id="learn" className="bg-gray-50 dark:bg-gray-900">
+      <div className="max-w-screen-xl px-4 py-8 mx-auto lg:py-20 lg:px-6">
         <div className="max-w-screen-md mx-auto mb-8 text-center lg:mb-12">
           <h2 className="mb-4 text-3xl font-extrabold tracking-tight text-gray-900 dark:text-white">
             Our Most Successfull<br/> and Tested Learning Plans
@@ -12,7 +12,7 @@ const LearningPlanSection = () => {
         <div className="space-y-8 lg:grid lg:grid-cols-2 sm:gap-6 xl:gap-10 lg:space-y-0">
           {/* Card 1 */}
           <div className="flex flex-col max-w-lg p-6 mx-auto text-center text-gray-900 bg-white border border-gray-100 rounded-lg shadow dark:border-gray-600 xl:p-8 dark:bg-gray-800 dark:text-white">
-            <span className="material-icons mb-2 text-5xl text-purple-600 dark:text-purple-400">category</span>
+            <span className="material-icons mb-2 text-5xl text-green-600 dark:text-purple-400">category</span>
             <div className="mb-2">
               <span className="text-sm font-bold text-gray-500">10 Modules</span>
               <span className="mx-1 text-sm font-bold text-gray-500">|</span>
@@ -53,7 +53,7 @@ const LearningPlanSection = () => {
 
           {/* Card 2 */}
           <div className="flex flex-col max-w-lg p-6 mx-auto text-center text-gray-900 bg-white border border-gray-100 rounded-lg shadow dark:border-gray-600 xl:p-8 dark:bg-gray-800 dark:text-white">
-            <span className="material-icons mb-2 text-5xl text-purple-600 dark:text-purple-400">category</span>
+            <span className="material-icons mb-2 text-5xl text-green-600 dark:text-purple-400">category</span>
             <div className="mb-2">
               <span className="text-sm font-bold text-gray-500">10 Modules</span>
               <span className="mx-1 text-sm font-bold text-gray-500">|</span>

@@ -9,33 +9,35 @@ function FAQSection() {
 
   const accordionItems = [
     {
-      question: "Can I use Landwind in open-source projects?",
-      answer: "Landwind is an open-source library of interactive components built on top of Tailwind CSS including buttons, dropdowns, modals, navbars, and more. Check out this guide to learn how to get started and start developing websites even faster with components on top of Tailwind CSS.",
+      question: "Can I use IeltsAppeal for self-study?",
+      answer: "With this platform, you do not need anything else for your IELTS preparation, and we guarantee this based on catering to thousands of students who have trusted us. Yes, you can use IeltsAppeal for self-study. It offers a comprehensive platform for individuals preparing for the IELTS exam on their own. However, certain features such as progress tracking, team support, weak area detection, and customized study paths are only available in paid subscription tiers.",
     },
     {
-      question: "Is there a Figma file available?",
-      answer: "Landwind is first conceptualized and designed using the Figma software so everything you see in the library has a design equivalent in our Figma file. Check out the Figma design system based on the utility classes from Tailwind CSS and components from Landwind.",
+      question: "Can I use IeltsAppeal without a subscription for free and self-study?",
+      answer: "Yes, you can use IeltsAppeal for free self-study. However, certain premium features such as progress tracking, team support, weak area detection, and customized study paths will not be available in the free tier.",
     },
     {
-      question: "What are the differences between Landwind and Tailwind UI?",
-      answer: "The main difference is that the core components from Landwind are open source under the MIT license, whereas Tailwind UI is a paid product. Another difference is that Landwind relies on smaller and standalone components, whereas Tailwind UI offers sections of pages. However, we actually recommend using both Landwind, Landwind Pro, and even Tailwind UI as there is no technical reason stopping you from using the best of two worlds.",
+      question: "Is there a mobile app available for IeltsAppeal?",
+      answer: "No, IeltsAppeal does not have a mobile app. It has been designed as a browser-based platform, accessible on all devices, prioritizing convenience and accessibility for all users.",
+    },
+    {
+      question: "How does IeltsAppeal ensure accuracy in its practice tests?",
+      answer: "IeltsAppeal ensures accuracy in its practice tests through high-level machine learning and AI models. These models analyze test results against the official IELTS syllabus and marking system, providing users with reliable assessment and feedback.",
+    },
+    {
+      question: "What support resources are available for users of IeltsAppeal?",
+      answer: "IeltsAppeal offers a range of support resources to its users. Our best and proven study materials are available for free to all users, ensuring a focused learning experience for students aiming to enhance their English skills.",
       links: [
-        { text: "Learn more about Landwind Pro", url: "#" },
-        { text: "Learn more about Tailwind UI", url: "#" }
-      ]
-    },
-    {
-      question: "What about browser support?",
-      answer: "The main difference is that the core components from Landwind are open source under the MIT license, whereas Tailwind UI is a paid product. Another difference is that Landwind relies on smaller and standalone components, whereas Tailwind UI offers sections of pages. However, we actually recommend using both Landwind, Landwind Pro, and even Tailwind UI as there is no technical reason stopping you from using the best of two worlds.",
-      links: [
-        { text: "Learn more about Landwind Pro", url: "#" },
-        { text: "Learn more about Tailwind UI", url: "#" }
+        { text: "Explore FAQs", url: "#" },
+        { text: "Contact Customer Support", url: "#" }
       ]
     }
   ];
+  
+
 
   return (
-    <section className="bg-white dark:bg-gray-900">
+    <section id='faqs' className="bg-white dark:bg-gray-900">
       <div className="max-w-screen-xl my-5 px-4 pb-6 mx-auto lg:pb-6 lg:px-6">
         <h2 className="mb-6 text-3xl font-extrabold tracking-tight text-gray-900 lg:mb-8 lg:text-3xl dark:text-white text-center">Frequently asked questions</h2>
         <div className="max-w-screen-md mx-auto">
