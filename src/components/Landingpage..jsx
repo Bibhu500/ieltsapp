@@ -15,6 +15,7 @@ import WritingSection from './WritingSection';
 import SpeakingSection from './SpeakingSection';
 
 
+
 const Landingpage = () => {
   return (
    
@@ -31,7 +32,10 @@ const Landingpage = () => {
       <TestimonialsCarousel/>
       <FAQSection/>
       <FreeTrialSection/>
+      
       <HelpCenter/>
+      
+
       </div>
     
   );

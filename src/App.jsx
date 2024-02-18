@@ -1,4 +1,5 @@
 import './App.css';
+
 import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 
 
@@ -12,8 +13,10 @@ import Pricing from './components/Pricing';
 import LoginPage from './components/LoginPage';
 import Landingpage from './components/Landingpage.';
 import SignupPage from './components/SignupPage';
-
-
+import Guaranteed from './components/Guaranteed'
+import Band8topics from './components/Band8topic'
+import Maindash from './components/Maindash';
+import Day1 from './components/Day1';
 const App = () => {
   return (
     <Router>
@@ -21,6 +24,11 @@ const App = () => {
         
         <Routes>
           <Route path="/" element={<Landingpage/>} />
+          <Route path="/maindash" element={<Maindash/>} />
+          <Route path="/guaranteed" element={<Guaranteed/>} />
+          <Route path="/band8topics" element={<Band8topics/>} />
+          <Route path="/day1" element={<Day1/>} />
+
           <Route path="/learn" element={<Learn />} />
           <Route path="/speaking" element={<Speaking />} />
           <Route path="/writing" element={<Writing />} />
@@ -29,6 +37,8 @@ const App = () => {
           <Route path="/pricing" element={<Pricing />} />
           <Route path="/login" element={<LoginPage/>} />
           <Route path="/signup" element={<SignupPage/>} />
+          
+          
           
           
         </Routes>
