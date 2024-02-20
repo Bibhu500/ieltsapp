@@ -5,8 +5,6 @@ import { HiMenuAlt3 } from "react-icons/hi";
 import { MdDashboard } from "react-icons/md";
 import { BiBookReader, BiMoney, BiDollarCircle } from "react-icons/bi";
 import { RiFeedbackLine, RiContactsLine } from "react-icons/ri";
-import CardContainer from "./CardContainer";
-import GuaranteedCourses from "./Guaranteed"; // Import the GuaranteedCourses component
 import logo1 from '../images/logo1.svg';
 import Band8topiccontainer from "./Band8topiccontainer";
 import Footer from "./Footer";
@@ -15,14 +13,14 @@ import Footer from "./Footer";
 const BandeightTopics = () => {
   const menus = [
     { name: "dashboard", link: "/maindash", icon: MdDashboard },
-    { name: "Guaranteed Courses", icon: BiBookReader },
+    { name: "Guaranteed Courses", link: "/guaranteed", icon: BiBookReader },
     { name: "Scholarship", link: "/", icon: BiMoney },
     { name: "Pricing", link: "/", icon: BiDollarCircle },
     { name: "Feedback", link: "/", icon: RiFeedbackLine },
     { name: "Contact Us", link: "/", icon: RiContactsLine },
   ];
 
-  const [open, setOpen] = useState(true);
+  const [open, setOpen] = useState(false);
   const [selectedMenu, setSelectedMenu] = useState(null);
 
   const handleMenuClick = (index) => {
