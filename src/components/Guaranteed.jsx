@@ -17,12 +17,11 @@ const Guaranteed = () => {
                 "Individuals aiming for an 8 or above in the exam.",
                 "Learners at the Beginner or Intermediate level of English.",
                 "Those looking to enhance their overall English proficiency."
-            ],
+             ],
             outcomes: [
                 "Tactics for mastering each IELTS component for top scores.",
                 "Methods to consistently achieve a band 8 across all sections.",
-                "Insights into the criteria IELTS examiners use to assess Speaking and Writing."
-            ],
+                "Insights into the criteria IELTS examiners use to assess Speaking and Writing."            ],
             link: "bandeighttopics",
             progress: 50,
             time: "4 weeks",

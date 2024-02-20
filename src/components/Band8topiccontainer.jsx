@@ -1,5 +1,7 @@
 import Footer from './Footer';
 import React, { useState, useEffect } from 'react';
+import { Link } from 'react-router-dom'; // Import Link component from react-router-dom
+
 // Import your external CSS here if needed
 // import './YourExternalStyleSheet.css';
 
@@ -7,7 +9,7 @@ const coursesData = [
     {
         title: "Day 1: Introduction to IELTS",
         description: "The 30-day IELTS course begins with an introduction to the IELTS exam, covering its structure, scoring system, and setting study goals. It also emphasizes the importance of understanding the exam's components to effectively plan for success.",
-        chapterLink: "Day1",
+        chapterLink: "day1",
         lessons: [
             { name: "Overview of the IELTS Exam", url: "lesson1.html" },
             { name: "Understanding IELTS Scoring", url: "lesson2.html" },
@@ -18,7 +20,7 @@ const coursesData = [
     {
         title: "Day 2: Listening - Strategies and Foundations",
         description: "Introduction to IELTS Listening, focusing on understanding question types and developing active listening skills.",
-        chapterLink: "Day2",
+        chapterLink: "day2",
         lessons: [
             { name: "Introduction to IELTS Listening", url: "lesson4.html" },
             { name: "Understanding Question Types", url: "lesson5.html" },
@@ -376,37 +378,41 @@ const coursesData = [
 
 ];
 
+
 const CourseModule = ({ module, index }) => {
-  const [isOpen, setIsOpen] = useState(false);
-
-  const toggleOpen = () => setIsOpen(!isOpen);
-
-  return (
-    <div className=" border rounded shadow-lg mb-4 p-4">
-      <div>
-        <h3 className="text-xl font-bold text-slate-700">{module.title}</h3>
-        <p>{module.description}</p>
-        <a href={module.chapterLink} className="inline-block bg-blue-500 text-white py-2 px-4 rounded hover:bg-blue-700 transition duration-200">Start Now</a>
-        <div className="mt-3">
-          <button onClick={toggleOpen} className="flex justify-between items-center w-full text-black font-medium py-2">
-            Show All <i className={`fas fa-chevron-${isOpen ? 'up' : 'down'}`}></i>
-            <span className="text-sm">{module.lessonsCompleted} finished</span>
-          </button>
-          {isOpen && (
-            <div className="border-t mt-2 pt-2">
-              <h5 className='text-left'>Lessons to Cover</h5>
-              <ul className='text-left'>
-                {module.lessons.map((lesson, idx) => (
-                  <li key={idx}><a href={lesson.url} className="text-blue-500 text-xs hover:text-blue-700">{lesson.name}</a></li>
-                ))}
-              </ul>
-            </div>
-          )}
+    const [isOpen, setIsOpen] = useState(false);
+  
+    const toggleOpen = () => setIsOpen(!isOpen);
+  
+    return (
+      <div className="border rounded shadow-lg mb-4 p-4">
+        <div>
+          <h3 className="text-xl font-bold text-slate-700">{module.title}</h3>
+          <p>{module.description}</p>
+          {/* Replace a tag with Link component */}
+          <Link to={module.chapterLink} className="inline-block bg-blue-500 text-white py-2 px-4 rounded hover:bg-blue-700 transition duration-200">Start Now</Link>
+          <div className="mt-3">
+            <button onClick={toggleOpen} className="flex justify-between items-center w-full text-black font-medium py-2">
+              Show All <i className={`fas fa-chevron-${isOpen ? 'up' : 'down'}`}></i>
+              <span className="text-sm">{module.lessonsCompleted} finished</span>
+            </button>
+            {isOpen && (
+              <div className="border-t mt-2 pt-2">
+                <h5 className='text-left'>Lessons to Cover</h5>
+                <ul className='text-left'>
+                  {module.lessons.map((lesson, idx) => (
+                    // Replace a tag with Link component for each lesson
+                    <li key={idx}><Link to={lesson.url} className="text-blue-500 text-xs hover:text-blue-700">{lesson.name}</Link></li>
+                  ))}
+                </ul>
+              </div>
+            )}
+          </div>
         </div>
       </div>
-    </div>
-  );
-};
+    );
+  };
+  
 
 const Band8topiccontainer = () => {
   return (
