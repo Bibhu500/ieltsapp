@@ -92,7 +92,7 @@ const CoursePage = () => {
 
       {/* Main content */}
       <div className="flex-1 p-10 mt-16 md:mt-0 md:pl-80">
-        <Link to="/band8topics">
+        <Link to="/bandeighttopics">
           <button className="absolute top-4 right-4 flex items-center bg-transparent border-none outline-none cursor-pointer">
             <span className="text-gray-600">Go to the course</span>
             <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5 ml-1" viewBox="0 0 20 20" fill="currentColor">
