@@ -60,7 +60,7 @@ const CoursePage = () => {
         <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M4 6h16M4 12h16M4 18h16" />
       </svg>
     </button>
-    <Link to="/band8topics" className="flex items-center">
+    <Link to="/maindash/bandeighttopics" className="flex items-center">
       <button className="bg-transparent border-none outline-none cursor-pointer mr-4">
         <span className="text-gray-600">Go to the course</span>
         <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5 ml-1" viewBox="0 0 20 20" fill="currentColor">
