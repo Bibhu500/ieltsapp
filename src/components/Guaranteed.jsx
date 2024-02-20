@@ -1,13 +1,15 @@
+
 import React, { useState } from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faClipboard, faNewspaper } from '@fortawesome/free-solid-svg-icons';
 import '../css/styles.css'; // Import your external styles.css file
 import Topspace from './Topspace';
 import Footer from './Footer';
+import { Link } from 'react-router-dom'; // Import Link component from react-router-dom
 
 const Guaranteed = () => {
     const [courses, setCourses] = useState([
-        // Course objects here...
+        // Your course objects here...
         {
             title: "Sure 8+ bands In IELTS",
             description: "If you're targeting 8 or higher bands on the IELTS, this learning plan is tailor-made for you! Within this practical guide, we'll delve into each of the IELTS's four sections, providing detailed tips and expert strategies.",
@@ -86,8 +88,6 @@ const Guaranteed = () => {
             modules: "10 Modules",
             lessons: "20 Lessons"
         }
-        // Course 3: Mastering IELTS to Perfection
-       
     ]);
 
     return (<>
@@ -106,27 +106,28 @@ const Guaranteed = () => {
                                 <span>{course.lessons}</span>
                             </div>
                             <div className="card-body text-left">
-                                <h2 className="card-title text-xl font-bold ">{course.title}</h2>
+                                <h2 className="card-title text-xl font-bold">{course.title}</h2>
                                 <p className="card-text text-sm">{course.description}</p>
                                 <div className="my-4">
-                                    <h4 className="text-sm font-semibold ">IDEAL FOR:</h4>
+                                    <h4 className="text-sm font-semibold">IDEAL FOR:</h4>
                                     <ul className="text-xs pl-0">
                                         {course.idealFor.map((point, idx) => (
-                                            <li key={idx}><input type="checkbox" checked style={{ color: 'green' }} /> {point}</li>
+                                            <li key={idx}><input type="checkbox" checked readOnly style={{ color: 'green' }} /> {point}</li>
                                         ))}
                                     </ul>
                                 </div>
                                 <div className="my-4">
-                                    <h4 className="text-sm font-semibold ">EDUCATIONAL OUTCOMES & SKILLS I WOULD ACQUIRE</h4>
+                                    <h4 className="text-sm font-semibold">EDUCATIONAL OUTCOMES & SKILLS I WOULD ACQUIRE</h4>
                                     <ul className="text-xs pl-0">
                                         {course.outcomes.map((point, idx) => (
-                                            <li key={idx}><input type="checkbox" checked style={{ color: 'green' }} /> {point}</li>
+                                            <li key={idx}><input type="checkbox" checked readOnly style={{ color: 'green' }} /> {point}</li>
                                         ))}
                                     </ul>
                                 </div>
                                 <div className="row align-items-center">
                                     <div className="col-6 d-flex justify-content-start">
-                                        <a href={course.link} className="btn btn-primary" style={{ margin: '2px' }}>Start Learning</a>
+                                        {/* Replace <a> tag with <Link> component */}
+                                        <Link to={course.link} className="btn btn-primary" style={{ margin: '2px' }}>Start Learning</Link>
                                     </div>
                                     <div className="col-6 d-flex justify-content-end">
                                         <div className="progress" style={{ height: '20px', width: '150px', margin: '2px' }}>
@@ -135,19 +136,14 @@ const Guaranteed = () => {
                                     </div>
                                 </div>
                             </div>
-                            <div className="card-footer animatedd-text  text-center">Time: {course.time}</div>
+                            <div className="card-footer animatedd-text text-center">Time: {course.time}</div>
                         </div>
                     </div>
                 ))}
                 <Footer/>
             </div>
-            
-            
         </div>
-        
-        </>
-    );
+    </>);
 };
-
 
 export default Guaranteed;
