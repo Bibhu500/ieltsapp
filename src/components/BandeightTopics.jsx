@@ -12,7 +12,7 @@ import Band8topiccontainer from "./Band8topiccontainer";
 import Footer from "./Footer";
 
 
-const Maindash = () => {
+const BandeightTopics = () => {
   const menus = [
     { name: "dashboard", link: "/maindash", icon: MdDashboard },
     { name: "Guaranteed Courses", icon: BiBookReader },
@@ -157,4 +157,4 @@ const Maindash = () => {
   );
 };
 
-export default Maindash;
+export default BandeightTopics;

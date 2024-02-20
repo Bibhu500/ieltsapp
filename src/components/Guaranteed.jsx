@@ -21,7 +21,7 @@ const Guaranteed = () => {
                 "Methods to consistently achieve a band 8 across all sections.",
                 "Insights into the criteria IELTS examiners use to assess Speaking and Writing."
             ],
-            link: "band8topics",
+            link: "bandeighttopics",
             progress: 50,
             time: "4 weeks",
             modules: "10 Modules",

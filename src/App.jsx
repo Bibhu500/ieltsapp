@@ -14,7 +14,7 @@ import LoginPage from './components/LoginPage';
 import Landingpage from './components/Landingpage.';
 import SignupPage from './components/SignupPage';
 import Guaranteed from './components/Guaranteed'
-import Band8topics from './components/Band8topic'
+import BandeightTopics from './components/BandeightTopics'
 import Maindash from './components/Maindash';
 import Day1 from './components/Day1';
 const App = () => {
@@ -26,7 +26,7 @@ const App = () => {
           <Route path="/" element={<Landingpage/>} />
           <Route path="/maindash" element={<Maindash/>} />
           <Route path="/guaranteed" element={<Guaranteed/>} />
-          <Route path="/band8topics" element={<Band8topics/>} />
+          <Route path="/bandeighttopics" element={<BandeightTopics/>} />
           <Route path="/day1" element={<Day1/>} />
 
           <Route path="/learn" element={<Learn />} />

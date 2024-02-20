@@ -6,7 +6,7 @@ import { MdDashboard } from "react-icons/md";
 import { BiBookReader, BiMoney, BiDollarCircle } from "react-icons/bi";
 import { RiFeedbackLine, RiContactsLine } from "react-icons/ri";
 import CardContainer from "./CardContainer";
-import GuaranteedCourses from "./Guaranteed"; // Import the GuaranteedCourses component
+import Guaranteed from "./Guaranteed"; // Import the GuaranteedCourses component
 import logo1 from '../images/logo1.svg';
 
 const Maindash = () => {
@@ -143,7 +143,7 @@ const Maindash = () => {
         </div>
         <div id="main" className={`w-full ${open ? "ml-52" : "ml-0"} mt-2 pt-0`}>
           {/* Conditionally render the component based on the selected menu */}
-          {selectedMenu === 1 ? <GuaranteedCourses /> : <CardContainer />}
+          {selectedMenu === 1 ? <Guaranteed/> : <CardContainer />}
         </div>
       </section>
     </>
