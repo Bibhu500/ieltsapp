@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import { useState, useEffect } from 'react';
 import OpenAI from './OpenAI'; // Import the Axios instanceWritin
 import './Writing.css'
 import ScoreCard from './ScoreCard'; // Import ScoreCard component
