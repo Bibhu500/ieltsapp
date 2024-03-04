@@ -19,6 +19,8 @@ import Maindash from './components/Maindash';
 import Day1 from './components/Day1';
 import Writing2 from './components/Writing2';
 import Writing1 from './components/Writing1';
+import SpeechToText from './components/SpeechToText';
+
 const App = () => {
   return (
     <Router>
@@ -42,7 +44,8 @@ const App = () => {
           
           <Route path="/writing2" element={<Writing2/>} />
           <Route path="/writing1" element={<Writing1/>} />
-          
+          <Route path="/speechtotext" element={<SpeechToText/>} />
+         
           
         </Routes>
       </div>
