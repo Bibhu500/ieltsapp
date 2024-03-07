@@ -1,183 +1,243 @@
-<!DOCTYPE html>
-<html lang="en">
-    <head>
-        <meta charset="utf-8" />
-        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
-        <meta name="description" content="" />
-        <meta name="author" content="" />
-        <title>IeltsAppeal</title>
-        <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" rel="stylesheet" crossorigin="anonymous">
-        <link href="css/bottom-buttons.css" rel="stylesheet" />
-        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
-        <link href="css/styles.css" rel="stylesheet" />
-    </head>
-    <body class="sb-nav-fixed">
-        <nav class="sb-topnav navbar navbar-expand navbar-dark bg-dark">
-            <!-- Navbar Brand-->
-            <a class="navbar-brand ps-3" href="index.html">IeltsAppeal</a>
-            <!-- Sidebar Toggle-->
-            <button class="btn btn-link btn-sm order-1 order-lg-0 me-4 me-lg-0" id="sidebarToggle" href="#!"><i class="fas fa-bars"></i></button>
-            <!-- Navbar Search-->
-          
-            <!-- Navbar-->
-            <ul class="navbar-nav ms-auto ms-md-0 me-3 me-lg-4">
-                <li class="nav-item dropdown">
-                    <a class="nav-link dropdown-toggle" id="navbarDropdown" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false"><i class="fas fa-user fa-fw"></i></a>
-                    <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
-                        <li><a class="dropdown-item" href="#!">Settings</a></li>
-                        <li><a class="dropdown-item" href="#!">Activity Log</a></li>
-                        <li><hr class="dropdown-divider" /></li>
-                        <li><a class="dropdown-item" href="#!">Logout</a></li>
-                    </ul>
-                </li>
-            </ul>
-        </nav>
-        <div id="layoutSidenav">
-            <div id="layoutSidenav_nav">
-                <nav class="sb-sidenav accordion sb-sidenav-dark" id="sidenavAccordion">
-                    <div class="sb-sidenav-menu">
-                        <div class="nav">
-                            <section class="sb-sidenav-menu-heading">Core</section>
-                            <a class="nav-link" href="dashboard.html">
-                                <i class="sb-nav-link-icon fas fa-tachometer-alt"></i> Dashboard
-                            </a>
-                            <section class="sb-sidenav-menu-heading">Modules</section>
-                            <a class="nav-link collapsed" href="#" data-bs-toggle="collapse" data-bs-target="#collapseLayouts" aria-expanded="false">
-                                <i class="sb-nav-link-icon fas fa-columns"></i> Layouts
-                                <i class="sb-sidenav-collapse-arrow fas fa-angle-down"></i>
-                            </a>
-                            <div class="collapse" id="collapseLayouts" data-bs-parent="#sidenavAccordion">
-                                <nav class="sb-sidenav-menu-nested nav">
-                                    <a class="nav-link" href="layout-static.html">Static Navigation</a>
-                                    <a class="nav-link" href="layout-sidenav-light.html">Light Sidenav</a>
-                                </nav>
-                            </div>
-                            <!-- ... other sections ... -->
-                            <section class="sb-sidenav-menu-heading">Learning</section>
-                            <a class="nav-link" href="guarangteedlearning.html">
-                                <i class="sb-nav-link-icon fas fa-chart-area"></i> Guaranteed Courses
-                            </a>
-                            <section class="sb-sidenav-menu-heading">Others</section>
-                            <a class="nav-link" href="pricing.html">
-                                <i class="sb-nav-link-icon fas fa-tags"></i> Pricing
-                            </a>
-                            <a class="nav-link" href="scholarship.html">
-                                <i class="sb-nav-link-icon fas fa-graduation-cap"></i> Scholarship
-                            </a>
-                            <a class="nav-link" href="feedback.html">
-                                <i class="sb-nav-link-icon fas fa-comments"></i> Feedback
-                            </a>
-                            <a class="nav-link" href="contact.html">
-                                <i class="sb-nav-link-icon fas fa-envelope"></i> Contact Us
-                            </a>
-                        </div>
-                    </div>
-                    <div class="sb-sidenav-footer">
-                        <div class="small">Logged in as:</div>
-                        Start Bootstrap
-                    </div>
-                </nav>
+import  { useState, useEffect } from 'react';
+
+const questionsList = [
+  { id: 1, text: "Let’s talk about your hometown. Where is your hometown?" },
+  { id: 2, text: "What do you like about it?" },
+  { id: 3, text: "What do you not like about it?" },
+  { id: 4, text: "How important is your hometown to you?" },
+  { id: 5, text: "Do you think you will continue to live in your hometown?" },
+  { id: 6, text: "Let’s move on to talk about accommodation. Tell me about the kind of accommodation you live in?" },
+  { id: 7, text: "Does the place you live in have many amenities?" },
+  { id: 8, text: "Is there anything you would like to change about the place you live in?" },
+  { id: 9, text: "Do you plan to live there for a long time?" },
+  // Additional questions...
+].map(q => ({ ...q, answer: "", played: false }));
+
+
+const SpeechToText = () => {
+  const [questions, setQuestions] = useState(questionsList);
+  const [currentQuestionIndex, setCurrentQuestionIndex] = useState(0);
+  const [isRecording, setIsRecording] = useState(false);
+  const [testStarted, setTestStarted] = useState(false);
+  const [recognitionActive, setRecognitionActive] = useState(false);
+  const [userName, setUserName] = useState("");
+  const [recordingName, setRecordingName] = useState(false);
+
+
+  useEffect(() => {
+    if ('webkitSpeechRecognition' in window) {
+      const recognition = new window.webkitSpeechRecognition();
+      recognition.lang = 'en-US';
+      recognition.continuous = false; // Capture a single result
+      recognition.interimResults = true;
+
+      recognition.onresult = (event) => {
+        let finalTranscript = '';
+        for (let i = event.resultIndex; i < event.results.length; ++i) {
+          if (event.results[i].isFinal) {
+            finalTranscript += event.results[i][0].transcript;
+          }
+        }
+        const newQuestions = questions.map((q, idx) => 
+          idx === currentQuestionIndex ? { ...q, answer: finalTranscript } : q
+        );
+        setQuestions(newQuestions);
+      };
+
+      recognition.onend = () => {
+        setIsRecording(false);
+        setRecognitionActive(false);
+        if (testStarted && currentQuestionIndex < questions.length - 1) {
+          setCurrentQuestionIndex((prevIndex) => prevIndex + 1);
+        } else {
+          setTestStarted(false);
+        }
+      };
+
+      window.recognition = recognition;
+    } else {
+      alert("Your browser does not support the Web Speech API. Please use a supported browser.");
+    }
+  }, [testStarted, currentQuestionIndex, questions]);
+
+  useEffect(() => {
+    if (testStarted && currentQuestionIndex < questions.length) {
+      const questionText = questions[currentQuestionIndex].text;
+      speakQuestion(questionText);
+    }
+  }, [testStarted, currentQuestionIndex]);
+
+
+  const speakIntroduction = () => {
+    const msg = new SpeechSynthesisUtterance();
+    msg.text = "Welcome to the Speaking section of the IELTS examination. My name is Brandon Coli and I will be your examiner for this part of the test and for your information, this test will be recorded. May I know your full name please?";
+    msg.onend = () => {
+      setRecordingName(true); // Set state to indicate recording name
+      startRecordingName(); // Start recording user's name
+    };
+    window.speechSynthesis.speak(msg);
+  };
+
+  const startRecordingName = () => {
+    const recognition = new window.webkitSpeechRecognition();
+    recognition.lang = 'en-US';
+    recognition.continuous = false; // Capture a single result
+    recognition.interimResults = true;
+  
+    recognition.onresult = (event) => {
+      let finalTranscript = '';
+      for (let i = event.resultIndex; i < event.results.length; ++i) {
+        if (event.results[i].isFinal) {
+          finalTranscript += event.results[i][0].transcript;
+        }
+      }
+      setUserName(finalTranscript); // Set the recorded user's name
+      setRecordingName(false); // Recording name complete
+      startTest(); // Start the test after recording name
+    };
+  
+    recognition.onend = () => {
+      setIsRecording(false);
+      setRecognitionActive(false);
+    };
+  
+    setIsRecording(true);
+    setRecognitionActive(true);
+    recognition.start();
+  
+    // Set a timeout to stop recording after 2 seconds
+    setTimeout(() => {
+      recognition.stop();
+      setIsRecording(false);
+      setRecognitionActive(false);
+      if (!userName) {
+        // If the user hasn't spoken their name within 2 seconds, inform and proceed
+        console.log("User didn't speak their name within 2 seconds");
+        startTest(); // Start the test
+      }
+    }, 5000);
+  };
+  
+
+  const speakQuestion = (questionText) => {
+    const msg = new SpeechSynthesisUtterance();
+    msg.text = questionText;
+    msg.onend = () => {
+      if (testStarted) {
+        startAnswerRecording();
+      }
+    };
+    window.speechSynthesis.speak(msg);
+  };
+
+  const startAnswerRecording = () => {
+    if (!recognitionActive) {
+      setIsRecording(true);
+      setRecognitionActive(true);
+      const recognition = new window.webkitSpeechRecognition();
+      recognition.lang = 'en-US';
+      recognition.continuous = true; // Keep recognition active for pauses in speech
+      recognition.interimResults = true; // Capture interim results
+  
+      recognition.start();
+  
+      // Stop recognition after exactly 10 seconds
+      setTimeout(() => {
+        recognition.stop();
+        setIsRecording(false);
+        setRecognitionActive(false);
+        if (testStarted && currentQuestionIndex < questions.length - 1) {
+          setCurrentQuestionIndex((prevIndex) => prevIndex + 1);
+        } else {
+          setTestStarted(false);
+        }
+      }, 2000); // 10 seconds
+  
+      recognition.onresult = (event) => {
+        let interimTranscript = '';
+        for (let i = event.resultIndex; i < event.results.length; ++i) {
+          if (event.results[i].isFinal) {
+            const newQuestions = questions.map((q, idx) => 
+              idx === currentQuestionIndex ? { ...q, answer: event.results[i][0].transcript } : q
+            );
+            setQuestions(newQuestions);
+            console.log("Question:", newQuestions[currentQuestionIndex].text);
+            console.log("Answer:", newQuestions[currentQuestionIndex].answer);
+          } else {
+            interimTranscript += event.results[i][0].transcript;
+          }
+        }
+        // Optional: Use interimTranscript for real-time display of speech being recognized
+      };
+  
+      recognition.onend = () => {
+        setIsRecording(false);
+        setRecognitionActive(false);
+      };
+    }
+  };
+  
+
+
+const handleStartTest = () => {
+  setTestStarted(true); // Set this here to prevent multiple button presses
+  speakIntroduction(); // Start with the introduction
+  startTest(); // Start the test
+};
+
+
+const startTest = () => {
+  setCurrentQuestionIndex(0); // Ensure the first question is ready to be spoken after introduction
+  setQuestions(questionsList.map(q => ({ ...q, answer: "", played: false }))); // Reset answers and played status
+};
+
+
+
+
+  const handleCloseTest = () => {
+    window.speechSynthesis.cancel();
+    if (window.recognition && recognitionActive) {
+      window.recognition.stop();
+    }
+    setIsRecording(false);
+    setTestStarted(false);
+    setCurrentQuestionIndex(0);
+    setQuestions(questionsList.map(q => ({ ...q, answer: "", played: false })));
+  };
+
+  // Your existing functions
+
+  return (
+    <div className="App">
+      <div className="min-h-screen bg-gray-100 flex flex-col justify-center items-center">
+        <h1 className="text-3xl font-bold mb-4">IELTS Speaking Test</h1>
+        {!testStarted && (
+          <button onClick={handleStartTest} className="bg-green-500 hover:bg-green-600 text-white font-bold py-2 px-4 rounded mt-4 mb-8">
+            Let's start the test
+          </button>
+        )}
+        
+        {testStarted && (
+          <div key={questions[currentQuestionIndex].id} className="p-4 max-w-md mx-auto bg-white rounded-xl shadow-md overflow-hidden md:max-w-2xl my-4">
+            <div className="md:flex">
+              <div className="p-8">
+                
+                <div className="uppercase tracking-wide text-sm text-indigo-500 font-semibold">{questions[currentQuestionIndex].text}</div>
+                <p className="mt-2 text-gray-500">{questions[currentQuestionIndex].answer}</p>
+                {isRecording ? <p>Recording...</p> : null}
+              </div>
             </div>
-            <div id="layoutSidenav_content">
-                <main>
-                    <div class="container-fluid px-4">
+          </div>
+        )}
+        {testStarted && (
+          <button onClick={handleCloseTest} className="bg-red-500 hover:bg-red-600 text-white font-bold py-2 px-4 rounded mt-4 mb-8">
+            Close the Test
+          </button>
+        )}
+      </div>
+    </div>
+  );
+};
 
-                        <div class="header-card">
-                            <h2>Dashboard</h2>
-                            <!-- Add more content here if needed -->
-
-                        </div>
-                        <div class="card mb-4">
-                            <div class="story-card-body">
-                              
-                                <div class="container">
-                                    <div class="row">
-                                      <!-- Left Section: Story -->
-                                      <div class="col-md-6">
-                                        <!-- Add your story HTML here -->
-                                        <div class="stories">
-                                            <div class="story">
-                                                <img class="story-thumbnail" src="./images/logo.svg" alt="Story 1">
-                                                <div class="story-user">Event 1</div>
-                                            </div>
-                                            <div class="story">
-                                                <img class="story-thumbnail" src="./images/logo.svg" alt="Story 1">
-                                                <div class="story-user">Event 1</div>
-                                            </div>
-                                            <div class="story">
-                                                <img class="story-thumbnail" src="./images/logo.svg" alt="Story 1">
-                                                <div class="story-user">Event 1</div>
-                                            </div>
-                                            <div class="story">
-                                                <img class="story-thumbnail" src="./images/logo.svg" alt="Story 1">
-                                                <div class="story-user">Event 1</div>
-                                            </div>
-                                            
-                                           
-                                            
-                                            <!-- Add more stories as needed -->
-                                        </div>
-                                        <!-- Story Modal -->
-                                        
-                                      </div>
-                                  
-                                      <!-- Right Section: Progress Bars -->
-                                      <div class="col-md-6">
-                                        <h2>Your Learning Courses</h2>
-                                        <div class="progress-bar-container">
-                                          <div class="progress">
-                                            <div class="progress-bar progress-bar-striped active" style="width:10%">Guide to 8+ Band</div>
-                                          </div>
-                                          <div class="progress">
-                                            <div class="progress-bar progress-bar-striped active" style="width:20%">Guide to 7+</div>
-                                          </div>
-                                          <div class="progress">
-                                            <div class="progress-bar progress-bar-striped active" style="width:50%">Writing 7+ Band</div>
-                                          </div>
-                                        </div>
-                                      </div>
-                                    </div>
-                                  </div>
-                            </div>
-                        </div>
-                        
-                        <div class="container my-4 text-center" id="testContainer">
-                            <h2 class="test-title">You are going great, enhance your skills and learning by practicing the actual tests now!</h2>
-                            <div class="row justify-content-center" id="testButtons"></div>
-                        </div>
-                        
-                    </div>
-                </main>
-                <footer class="py-4 bg-light mt-auto">
-                    <div class="container-fluid px-4">
-                        <div class="d-flex align-items-center justify-content-between small">
-                            <div class="text-muted">Copyright &copy; Your Website 2021</div>
-                            <div>
-                                <a href="#">Privacy Policy</a>
-                                &middot;
-                                <a href="#">Terms &amp; Conditions</a>
-                            </div>
-                        </div>
-                    </div>
-                </footer>
-            </div>
-        </div>
-        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" crossorigin="anonymous"></script>
-        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
-  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
-        <script src="js/scripts.js"></script>
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.8.0/Chart.min.js" crossorigin="anonymous"></script>
-
-        <script src="https://cdn.jsdelivr.net/npm/simple-datatables@latest" crossorigin="anonymous"></script>
-        <script src="js/datatables-simple-demo.js"></script>
-        <script src="assets/demo/AreaChartfulltest.js"></script>
-        <script src="assets/demo/AreaChartreading.js"></script>
-        <script src="assets/demo/AreaChartspeaking.js"></script>
-        <script src="assets/demo/AreaChartwriting.js"></script>
-        <script src="assets/demo/AreaChartlistening.js"></script>
-        <script src="assets/demo/AreaChartoverall.js"></script>
-        <script src="assets/demo/top-story.js"></script>
-        <script src="js/bottom-buttons.js"></script>
-    </body>
-</html>
+export default SpeechToText;
+ Analyse the code intelligently  and fix the name recording problem. its not waiting for 5 seconds to record the name but proceeds with the test without waiting for the name to be recorded. 
