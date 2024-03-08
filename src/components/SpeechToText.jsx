@@ -1,55 +1,13 @@
 import { useState, useEffect } from 'react';
+import questionList from './questionList';
 
-const questionsList = [
-  {
-    "part": 1,
-    "introduction": "Let's begin with Part 1. In this part, I'll ask you some questions about your hometown.",
-    "questions": [
-      {"id": 1, "text": "Where is your hometown?"},
-      {"id": 2, "text": "What do you like about it?"},
-      {"id": 3, "text": "What do you not like about it?"},
-      {"id": 4, "text": "How important is your hometown to you?"},
-      {"id": 5, "text": "Do you think you will continue to live in your hometown?"},
-      {"id": 6, "text": "Let’s move on to talk about accommodation. Tell me about the kind of accommodation you live in?"},
-      {"id": 7, "text": "Does the place you live in have many amenities?"},
-      {"id": 8, "text": "Is there anything you would like to change about the place you live in?"},
-      {"id": 9, "text": "Do you plan to live there for a long time?"}
-    ]
-  },
-  {
-    "part": 2,
-    "introduction": "Moving on to Part 2. Here is the part 2. You have a minute to prepare your answer. You can take some notes. Here is your question. So, take a minute to make some notes, and you will have up to 2 minutes to talk about the topic.",
-    "questions": [
-      {
-        "id": 6,
-        "text": "Describe an advertisement that persuaded you to buy a product. You should say",
-        "subQuestions": [
-          "What advertisement it was",
-          "Was it shown on TV, radio, or newspaper",
-          "What was good about that advertisement",
-          "Explain why you think that advertisement made the product seem attractive."
-        ]
-      }
-    ]
-  },
-  {
-    "part": 3,
-    "introduction": "Ok, we can move on to part 3. We will discuss some related questions",
-    "questions": [
-      {"id": 1, "text": "What are popular types of advertising in today’s world?"},
-      {"id": 2, "text": "What type of media advertising do you like most?"},
-      {"id": 3, "text": "Do you think advertising influences what people buy?"},
-      {"id": 4, "text": "What factors should be taken into account when making advertisements?"},
-      {"id": 5, "text": "Is advertising really necessary in modern society?"},
-      {"id": 6, "text": "Let’s move on from types of advertising to the impact of advertising on children. How does advertising influence children?"},
-      {"id": 7, "text": "Is there any advertising that can be harmful to children?"}
-    ]
-  }
-].map(part => ({ ...part, questions: part.questions.map(q => ({ ...q, answer: "", played: false })) }));
-
+const getQuestions = () => {
+  const randomIndex = Math.floor(Math.random() * questionList.length);
+  return questionList[randomIndex];
+};
 
 const SpeechToText = () => {
-  const [parts, setParts] = useState(questionsList);
+  const [parts, setParts] = useState(getQuestions());
   const [currentPart, setCurrentPart] = useState(0);
   const [currentQuestion, setCurrentQuestion] = useState(0);
   const [isRecording, setIsRecording] = useState(false);
@@ -62,18 +20,22 @@ const SpeechToText = () => {
   const [testCompleted, setTestCompleted] = useState(false);
 
   useEffect(() => {
-    if (testStarted && currentQuestion === 0) {
-      speakIntroduction(parts[currentPart].introduction, () => {
-        if (parts[currentPart].part === 2) startPreparationTimer();
-        else speakQuestion(parts[currentPart].questions[currentQuestion].text);
-      });
-    } else if (testStarted && parts[currentPart].part !== 2) {
-      speakQuestion(parts[currentPart].questions[currentQuestion].text);
+    if (testStarted) {
+      if (currentQuestion === 0) {
+        speakIntroduction(parts[currentPart].introduction, () => {
+          if (parts[currentPart].part === 2) startPreparationTimer();
+          else speakQuestion(parts[currentPart].questions[currentQuestion].text);
+        });
+      } else {
+        speakQuestion(parts[currentPart].questions[currentQuestion].text);
+      }
     }
   }, [testStarted, currentQuestion, currentPart]);
 
   useEffect(() => {
-    if (testCompleted) speakThankYouMessage();
+    if (testCompleted && userName) {
+      speakThankYouMessage();
+    }
   }, [testCompleted, userName]);
 
   const speakIntroduction = (introduction, callback) => {
@@ -88,6 +50,23 @@ const SpeechToText = () => {
     window.speechSynthesis.speak(msg);
   };
 
+  useEffect(() => {
+    if (testCompleted) {
+      const allQuestionsAndAnswers = parts.map((part) => {
+        const questionanswer = part.part === 2
+          ? [{ question: `${part.questions[0].text} ${part.questions[0].subQuestions?.join(' ')}`, answer: part.questions[0].answer }]
+          : part.questions.map((q, index) => ({
+              [`question ${index + 1}`]: q.text,
+              answer: q.answer,
+            }));
+  
+        return { part: part.part, questionanswer };
+      });
+  
+      console.log(allQuestionsAndAnswers);
+    }
+  }, [testCompleted]);
+
   const startAnswerRecording = () => {
     if (!recognitionActive) {
       setIsRecording(true);
@@ -96,12 +75,34 @@ const SpeechToText = () => {
       recognition.lang = 'en-US';
       recognition.continuous = true;
       recognition.interimResults = true;
+
+      let finalTranscript = '';
+
+      recognition.addEventListener('result', (event) => {
+        let interimTranscript = '';
+        for (let i = event.resultIndex; i < event.results.length; ++i) {
+          if (event.results[i].isFinal) {
+            finalTranscript += event.results[i][0].transcript;
+          } else {
+            interimTranscript += event.results[i][0].transcript;
+          }
+        }
+
+        const newParts = [...parts];
+        newParts[currentPart].questions[currentQuestion].answer = finalTranscript + interimTranscript;
+        setParts(newParts);
+      });
+
       recognition.start();
       const recordingDuration = parts[currentPart].part === 2 ? 120000 : 17000;
       setTimeout(() => {
         recognition.stop();
         setIsRecording(false);
         setRecognitionActive(false);
+
+        console.log("Question:", parts[currentPart].questions[currentQuestion].text);
+        console.log("Answer:", parts[currentPart].questions[currentQuestion].answer);
+
         if (currentQuestion < parts[currentPart].questions.length - 1) {
           setCurrentQuestion(prev => prev + 1);
         } else if (currentPart < parts.length - 1) {
@@ -112,18 +113,6 @@ const SpeechToText = () => {
           setTestCompleted(true);
         }
       }, recordingDuration);
-
-      recognition.onresult = (event) => {
-        for (let i = event.resultIndex; i < event.results.length; ++i) {
-          if (event.results[i].isFinal) {
-            const newParts = [...parts];
-            newParts[currentPart].questions[currentQuestion].answer = event.results[i][0].transcript;
-            setParts(newParts);
-            console.log("Question:", newParts[currentPart].questions[currentQuestion].text);
-            console.log("Answer:", newParts[currentPart].questions[currentQuestion].answer);
-          }
-        }
-      };
     }
   };
 
@@ -169,7 +158,7 @@ const SpeechToText = () => {
     setTestStarted(true);
     setCurrentPart(0);
     setCurrentQuestion(0);
-    setParts(questionsList.map(part => ({ ...part, questions: part.questions.map(q => ({ ...q, answer: "", played: false })) })));
+    setParts(getQuestions());
   };
 
   const handleStartTest = () => {
@@ -188,11 +177,11 @@ const SpeechToText = () => {
     setTestCompleted(false);
     setCurrentPart(0);
     setCurrentQuestion(0);
-    setParts(questionsList.map(part => ({ ...part, questions: part.questions.map(q => ({ ...q, answer: '', played: false })) })));
+    setParts(getQuestions());
   };
 
   const speakThankYouMessage = () => {
-    const msg = new SpeechSynthesisUtterance(`Thank you, ${userName}, for taking the IELTS Speaking Test. This concludes the test.`);
+    const msg = new SpeechSynthesisUtterance(`Thank you, for taking the IELTS Speaking Test. This concludes the test.`);
     window.speechSynthesis.speak(msg);
   };
 
